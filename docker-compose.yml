@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  demain_dev_db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    env_file: ./stack.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE:      ${DEV_DB_DATABASE}
+      MYSQL_USER:          ${DEV_DB_USERNAME}
+      MYSQL_PASSWORD:      ${DEV_DB_PASSWORD}
+      MYSQL_ROOT_HOST: "%"
+      TZ: Europe/Madrid
+    ports:
+      - "3307:3306"            # ← dev accesible desde tu Mac
+    volumes:
+      - demain_dev_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - demain_net
+
+  demain_prod_db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    env_file: ./stack.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE:      ${PROD_DB_DATABASE}
+      MYSQL_USER:          ${PROD_DB_USERNAME}
+      MYSQL_PASSWORD:      ${PROD_DB_PASSWORD}
+      MYSQL_ROOT_HOST: "%"
+      TZ: Europe/Madrid
+    ports:
+      - "3308:3306"            # ← prod separado; no lo usará Laravel aún
+    volumes:
+      - demain_prod_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - demain_net
+
+  demain_laravel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: ./stack.env
+    depends_on:
+      - demain_dev_db             # empezamos simple; más tarde añadimos espera activa si hace falta
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/var/www/html          # desarrollo con live-reload
+    networks:
+      - demain_net
+
+volumes:
+  demain_dev_db_data:
+  demain_prod_db_data:
+
+networks:
+  demain_net:
+    driver: bridge

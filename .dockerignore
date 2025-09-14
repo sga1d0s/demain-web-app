@@ -1,0 +1,65 @@
+# ─── VCS y SO ────────────────────────────────────────────────────────────────
+.git
+.gitmodules
+.gitignore
+.gitattributes
+.DS_Store
+Thumbs.db
+
+# ─── IDE/Editor ─────────────────────────────────────────────────────────────
+.vscode
+.idea
+*.iml
+
+# ─── Node/Frontend ──────────────────────────────────────────────────────────
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+# Mantén los lockfiles para instalaciones reproducibles
+!package-lock.json
+!yarn.lock
+!pnpm-lock.yaml
+
+# ─── PHP/Composer ───────────────────────────────────────────────────────────
+vendor
+composer.phar
+.phpunit.result.cache
+
+# ─── Entorno (no enviar secretos) ───────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─── Laravel runtime / dev server ───────────────────────────────────────────
+public/hot            # archivo que crea Vite en dev
+public/storage        # suele ser un symlink
+storage/*.key
+storage/debugbar      # si usas barryvdh/laravel-debugbar
+storage/logs/*.log
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+!storage/.gitignore
+!storage/logs/.gitignore
+!storage/framework/.gitignore
+!storage/framework/cache/.gitignore
+!storage/framework/sessions/.gitignore
+!storage/framework/views/.gitignore
+
+# Cache de bootstrap (igual idea)
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+
+# ─── Cobertura / artefactos de pruebas ──────────────────────────────────────
+coverage
+reports
+.clover
+
+# ─── Miscelánea ─────────────────────────────────────────────────────────────
+*.log
+*.sqlite
+*.sqlite3
+npm-cache
+bower_components
