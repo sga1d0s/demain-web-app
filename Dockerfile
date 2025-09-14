@@ -1,5 +1,6 @@
 # Etapa composer
-FROM composer:2 AS vendor
+FROM php:8.3-fpm-bookworm
+
 WORKDIR /app
 COPY composer.json composer.lock ./
 RUN composer install --no-interaction --no-scripts --no-progress
