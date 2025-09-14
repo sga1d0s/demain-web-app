@@ -1,17 +1,20 @@
-# Etapa composer
-FROM php:8.3-fpm-bookworm
-
+# Etapa 1: dependencias PHP (Composer)
+FROM composer:2 AS deps
 WORKDIR /app
 COPY composer.json composer.lock ./
-RUN composer install --no-interaction --no-scripts --no-progress
+RUN composer install --no-interaction --no-progress --prefer-dist
 COPY . .
-RUN composer install --no-interaction
+RUN composer install --no-interaction --no-progress --prefer-dist
 
-# Runtime PHP
-FROM php:8.3-cli
-RUN docker-php-ext-install pdo pdo_mysql
+# Etapa 2: runtime (CLI para artisan serve)
+FROM php:8.3-cli-bookworm
+RUN docker-php-ext-install pdo_mysql
 WORKDIR /var/www/html
-COPY --from=vendor /app ./
+COPY --from=deps /app ./
 
-# Nota: la APP_KEY la generamos desde fuera con artisan.
+# (Opcional pero recomendable)
+RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache \
+ && chown -R www-data:www-data storage bootstrap/cache \
+ && chmod -R ug+rwx storage bootstrap/cache
+
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
