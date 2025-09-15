@@ -53,8 +53,8 @@ services:
       - demain_prod_db   
     ports:
       - "8001:8000"
-    volumes:
-      - ./:/var/www/html
+    # volumes:
+    #   - ./:/var/www/html          # desarrollo con live-reload
     networks:
       - demain_net
 
