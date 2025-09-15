@@ -1,5 +1,5 @@
 # Etapa 1: dependencias PHP (Composer con PHP 8.3)
-FROM composer:2-php8.3 AS deps
+FROM composer:2-php:8.3-fpm-bookworm AS deps
 WORKDIR /app
 
 # Evita problemas de permisos/memoria y consigue logs si falla
