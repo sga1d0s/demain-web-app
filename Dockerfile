@@ -1,6 +1,24 @@
-# Etapa 1: dependencias PHP (Composer con PHP 8.3)
+# Dockerfile
 FROM php:8.3-fpm-bookworm
-WORKDIR /app
+
+# Evita prompts de apt
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Dependencias de sistema mínimas
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        libzip-dev \
+        unzip \
+        git \
+        curl; \
+    # zip de PHP necesita configurarse antes de compilar
+    docker-php-ext-configure zip; \
+    docker-php-ext-install -j"$(nproc)" \
+        pdo_mysql \
+        zip; \
+    # Limpieza
+    rm -rf /var/lib/apt/lists/*
 
 # Evita problemas de permisos/memoria y consigue logs si falla
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
