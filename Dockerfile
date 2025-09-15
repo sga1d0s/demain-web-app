@@ -20,25 +20,36 @@ RUN set -eux; \
     # Limpieza
     rm -rf /var/lib/apt/lists/*
 
-# Evita problemas de permisos/memoria y consigue logs si falla
-ENV COMPOSER_ALLOW_SUPERUSER=1 \
-    COMPOSER_MEMORY_LIMIT=-1
 
-COPY composer.json composer.lock ./
-RUN composer install --no-interaction --no-progress --prefer-dist -vvv
-COPY . .
-# No hace falta repetir install; si quieres autoloader optimizado:
-RUN composer dump-autoload --optimize
+# Composer (sin root warnings)
+ENV COMPOSER_ALLOW_SUPERUSER=1
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Etapa 2: runtime
-RUN apt-get update && apt-get install -y libicu-dev git unzip \
- && docker-php-ext-install pdo_mysql intl bcmath
+# Directorio de la app
 WORKDIR /var/www/html
-COPY --from=deps /app ./
 
-# Directorios Laravel y permisos
-RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache \
- && chown -R www-data:www-data storage bootstrap/cache \
- && chmod -R ug+rwx storage bootstrap/cache
+# Copia el proyecto completo
+COPY src /var/www/html
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Copia de dependencias primero para cachear
+COPY src/composer.json src/composer.lock ./
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader || true
+
+# —> AÑADE ESTO: crea las carpetas de cache/logs y dale permisos a www-data
+RUN mkdir -p /var/www/html/bootstrap/cache \
+    /var/www/html/storage/framework/{cache,sessions,views} \
+    /var/www/html/storage/logs \
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache /var/www/html/storage
+
+# Asegura permisos (ya lo tenías, pero no basta sin las carpetas)
+RUN chmod -R 775 /var/www/html/bootstrap/cache \
+    /var/www/html/storage
+
+# Instala dependencias de Laravel
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# Expone el puerto 8000
+EXPOSE 8000
+
+# Comando por defecto para ejecutar el servidor de Laravel
+CMD php artisan serve --host=0.0.0.0 --port=8000
