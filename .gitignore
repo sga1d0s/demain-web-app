@@ -25,3 +25,4 @@ Thumbs.db
 .env.dev
 .env.prod
 db.prod.env 
+db.dev.env
