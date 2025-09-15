@@ -1,18 +1,25 @@
-# Etapa 1: dependencias PHP (Composer)
-FROM composer:2 AS deps
+# Etapa 1: dependencias PHP (Composer con PHP 8.3)
+FROM composer:2-php8.3 AS deps
 WORKDIR /app
-COPY composer.json composer.lock ./
-RUN composer install --no-interaction --no-progress --prefer-dist
-COPY . .
-RUN composer install --no-interaction --no-progress --prefer-dist
 
-# Etapa 2: runtime (CLI para artisan serve)
+# Evita problemas de permisos/memoria y consigue logs si falla
+ENV COMPOSER_ALLOW_SUPERUSER=1 \
+    COMPOSER_MEMORY_LIMIT=-1
+
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-progress --prefer-dist -vvv
+COPY . .
+# No hace falta repetir install; si quieres autoloader optimizado:
+RUN composer dump-autoload --optimize
+
+# Etapa 2: runtime
 FROM php:8.3-cli-bookworm
-RUN docker-php-ext-install pdo_mysql
+RUN apt-get update && apt-get install -y libicu-dev git unzip \
+ && docker-php-ext-install pdo_mysql intl bcmath
 WORKDIR /var/www/html
 COPY --from=deps /app ./
 
-# (Opcional pero recomendable)
+# Directorios Laravel y permisos
 RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache \
  && chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rwx storage bootstrap/cache
