@@ -55,8 +55,8 @@ services:
       - demain_dev_db             # empezamos simple; más tarde añadimos espera activa si hace falta
     ports:
       - "8001:8000"
-    volumes:
-      - ./:/var/www/html          # desarrollo con live-reload
+    # volumes:
+    #   - ./:/var/www/html          # desarrollo con live-reload
     networks:
       - demain_net
 
