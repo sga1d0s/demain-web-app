@@ -63,7 +63,6 @@ services:
 volumes:
   demain_dev_db_data:
   demain_prod_db_data:
-  src:
 
 networks:
   demain_net:

@@ -29,7 +29,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copia el proyecto completo
-COPY src /var/www/html
+COPY . /var/www/html
 
 # Copia de dependencias primero para cachear
 COPY composer.json composer.lock ./
