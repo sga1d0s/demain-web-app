@@ -1,10 +1,10 @@
 # Etapa 1: dependencias PHP (Composer)
-FROM composer:2-php8.3 AS deps
+FROM composer:2 AS deps
 WORKDIR /app
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader -vvv
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 COPY . .
-RUN composer dump-autoload --optimize
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
 # Etapa 2: runtime (CLI para artisan serve)
 FROM php:8.3-cli-bookworm
