@@ -51,11 +51,10 @@ services:
       - ./stack.env
     depends_on:
       - demain_prod_db   
-      # - demain_dev_db 
     ports:
       - "8001:8000"
-    # volumes:
-    #   - ./:/var/www/html          # desarrollo con live-reload
+    volumes:
+      - ./:/var/www/html
     networks:
       - demain_net
 
