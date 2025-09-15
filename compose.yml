@@ -52,7 +52,8 @@ services:
     restart: unless-stopped
     env_file: ./stack.env
     depends_on:
-      - demain_dev_db             # empezamos simple; más tarde añadimos espera activa si hace falta
+      - demain_prod_db   
+      - demain_deb_db 
     ports:
       - "8001:8000"
     # volumes:
