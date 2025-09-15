@@ -1,5 +1,5 @@
 # Etapa 1: dependencias PHP (Composer con PHP 8.3)
-FROM composer:2-php:8.3-fpm-bookworm AS deps
+FROM php:8.3-fpm-bookworm
 WORKDIR /app
 
 # Evita problemas de permisos/memoria y consigue logs si falla
@@ -13,7 +13,6 @@ COPY . .
 RUN composer dump-autoload --optimize
 
 # Etapa 2: runtime
-FROM php:8.3-cli-bookworm
 RUN apt-get update && apt-get install -y libicu-dev git unzip \
  && docker-php-ext-install pdo_mysql intl bcmath
 WORKDIR /var/www/html
