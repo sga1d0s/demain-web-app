@@ -59,7 +59,7 @@ services:
     env_file: ./stack.env
     depends_on:
       - demain_prod_db   
-      - demain_deb_db 
+      - demain_dev_db 
     ports:
       - "8001:8000"
     # volumes:
