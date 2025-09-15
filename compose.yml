@@ -8,7 +8,10 @@ services:
       MYSQL_DATABASE:      ${DEV_DB_DATABASE}
       MYSQL_USER:          ${DEV_DB_USERNAME}
       MYSQL_PASSWORD:      ${DEV_DB_PASSWORD}
-      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_HOST:     ${DEV_DB_MYSQL_ROOT_HOST}
+      APP_ENV:             ${DEV_DB_APP_ENV}
+      APP_DEBUG:           ${DEV_DB_APP_DEBUG}
+      APP_URL:             ${DEV_DB_APP_DEBUG}
       TZ: Europe/Madrid
     ports:
       - "3307:3306"            # ← dev accesible desde tu Mac
@@ -31,7 +34,10 @@ services:
       MYSQL_DATABASE:      ${PROD_DB_DATABASE}
       MYSQL_USER:          ${PROD_DB_USERNAME}
       MYSQL_PASSWORD:      ${PROD_DB_PASSWORD}
-      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_HOST:     ${PROD_DB_MYSQL_ROOT_HOST}
+      APP_ENV:             ${PROD_DB_APP_ENV}
+      APP_DEBUG:           ${PROD_DB_APP_DEBUG}
+      APP_URL:             ${PROD_DB_APP_DEBUG}
       TZ: Europe/Madrid
     ports:
       - "3308:3306"            # ← prod separado; no lo usará Laravel aún
