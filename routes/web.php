@@ -10,8 +10,8 @@ Route::get('/', function () {
 Route::get('/health', function(){
     try{
         DB::connection()->getPdo();
-        return response()->json(['ok' => true, 'db' => DB::connection()->getDatabaseName()]);
+        return response()->json(['OK' => true, 'db' => DB::connection()->getDatabaseName()]);
     } catch (\Throwable $e) {
-        return response()->json(['ok' => false, 'error' => $e->getMessage()], 500);
+        return response()->json(['OK' => false, 'error' => $e->getMessage()], 500);
     }
 });
