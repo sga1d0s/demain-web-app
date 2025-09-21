@@ -10,7 +10,7 @@ services:
       MYSQL_PASSWORD:      ${DEV_DB_PASSWORD}
       TZ: Europe/Madrid
     ports:
-      - "3307:3306"
+      - "192.168.1.96:3307:3306"
     volumes:
       - demain_dev_db_data:/var/lib/mysql
     healthcheck:
