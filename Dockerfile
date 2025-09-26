@@ -6,20 +6,11 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 COPY . .
 RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader || true
 
-# Etapa 2: Node (Vite) — build de assets
-FROM node:20-alpine AS assets
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Etapa 3: runtime (CLI para artisan serve)
+# Etapa 2: runtime (CLI para artisan serve)
 FROM php:8.3-cli-bookworm
 RUN docker-php-ext-install pdo_mysql
 WORKDIR /var/www/html
 COPY --from=deps /app ./
-COPY --from=assets /app/public/build /var/www/html/public/build
 
 # (Opcional pero recomendable)
 RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache \
