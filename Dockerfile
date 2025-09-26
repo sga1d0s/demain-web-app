@@ -22,7 +22,6 @@ WORKDIR /var/www/html
 COPY --from=deps /app ./
 # Copia solo lo necesario del build de Vite
 COPY --from=assets /app/public/build /var/www/html/public/build
-COPY --from=assets /app/public/manifest.json /var/www/html/public/manifest.json 2>/dev/null || true
 RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache \
  && chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rwx storage bootstrap/cache
