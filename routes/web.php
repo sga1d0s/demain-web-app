@@ -14,7 +14,7 @@ Route::get('/health', function (Request $request) {
         DB::connection()->getPdo();
         return response()->json([
             'OK' => true, 
-            'db' => DB::connection()->getDatabaseName(),
+            'DB' => DB::connection()->getDatabaseName(),
             'user' => $request->user()?->name,
         ]);
     } catch (\Throwable $e) {
