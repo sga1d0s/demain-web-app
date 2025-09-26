@@ -14,14 +14,14 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Etapa 3: runtime PHP
+# Etapa 3: runtime (CLI para artisan serve)
 FROM php:8.3-cli-bookworm
 RUN docker-php-ext-install pdo_mysql
 WORKDIR /var/www/html
 COPY --from=deps /app ./
-# Copiar solo los assets generados por Vite
 COPY --from=assets /app/public/build /var/www/html/public/build
 
+# (Opcional pero recomendable)
 RUN mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache \
  && chown -R www-data:www-data storage bootstrap/cache \
  && chmod -R ug+rwx storage bootstrap/cache
