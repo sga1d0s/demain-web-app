@@ -23,54 +23,54 @@
 
 </head>
 
-<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex lg:p-6 items-center lg:justify-center flex-col">
-    
-    <header class="w-full max-w-[335px] text-sm ">
-        <div class="flex items-end justify-between pb-6">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-            <div class="font-impact text-3xl">Demain Informática</div>
-        </div>
+<body class="font-sans antialiased bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18]">
+    <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
+        <header class="w-full  max-w-[335px] text-sm">
+            <div class="flex items-end justify-between py-6">
+                <a href="/">
+                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                </a>
+                <div class="font-impact text-3xl">Demain Informática</div>
+            </div>
+        </header>
 
-    </header>
-
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-        @if (Route::has('login'))
-            <nav class="flex items-center justify-end gap-4">
-                @auth
-                    <a href="{{ url('/dashboard') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                        Dashboard
-                    </a>
-                    <a href="{{ url('/work-orders') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                        Work Orders
-                    </a>
-                @else
-                    <a href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                        Log in
-                    </a>
-
-                    {{-- Register eliminado --}}
-                    @if (Route::has('register') && 1 < 0)
-                        <a href="{{ route('register') }}"
+        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4">
+                    @auth
+                        <a href="{{ url('/dashboard') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                            Register
+                            Dashboard
                         </a>
-                    @endif
-                @endauth
-            </nav>
-        @endif
+                        <a href="{{ url('/work-orders') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                            Work Orders
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                            Log in
+                        </a>
 
-        <div>
-            <h1>DEMAIN</h1>
+                        {{-- Register eliminado --}}
+                        @if (Route::has('register') && 1 < 0)
+                            <a href="{{ route('register') }}"
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                Register
+                            </a>
+                        @endif
+                    @endauth
+                </nav>
+            @endif
+
+            <div>
+                <h1>DEMAIN</h1>
+            </div>
+            <div>
+                <h1>INFORMÁTICA</h1>
+            </div>
+            <p>Work orders management</p>
         </div>
-        <div>
-            <h1>INFORMÁTICA</h1>
-        </div>
-        <p>Work orders management</p>
     </div>
 
     @if (Route::has('login'))

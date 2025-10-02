@@ -26,7 +26,6 @@
 
 <body class="font-sans antialiased bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18]">
     <div class="min-h-screen flex flex-col items-center pt-6 sm:pt-0">
-        
         <header class="w-full  max-w-[335px] text-sm">
             <div class="flex items-end justify-between py-6">
                 <a href="/">
