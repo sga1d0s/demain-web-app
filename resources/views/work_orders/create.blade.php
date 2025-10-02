@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="max-w-3xl mx-auto p-6">
-        <form method="POST" action="{{ route('work-orders.store') }}" class="space-y-4">
+        <form method="POST" action="{{ route('workorders.store') }}" class="space-y-4">
             @csrf
 
             <div>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="flex gap-2">
-                <a href="{{ route('work-orders.index') }}" class="inline-flex items-center rounded-md px-4 py-2 border">Cancelar</a>
+                <a href="{{ route('workorders.index') }}" class="inline-flex items-center rounded-md px-4 py-2 border">Cancelar</a>
                 <button class="inline-flex items-center rounded-md px-4 py-2 border bg-gray-900 text-white">Crear</button>
             </div>
         </form>

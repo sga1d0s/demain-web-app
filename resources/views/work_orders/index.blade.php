@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <h1 class="text-2xl font-semibold">Órdenes de trabajo</h1>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Work Orders') }}
+        </h2>
     </x-slot>
 
     <div class="max-w-6xl mx-auto p-6">
@@ -11,7 +13,8 @@
         @endif
 
         <div class="flex items-center justify-between mb-4">
-            <a href="{{ route('work-orders.create') }}" class="inline-flex items-center rounded-md px-4 py-2 border text-sm font-medium hover:bg-gray-50">
+            <a href="{{ route('workorders.create') }}"
+                class="inline-flex items-center rounded-md px-4 py-2 border text-sm font-medium hover:bg-gray-50">
                 Nueva orden
             </a>
         </div>
@@ -41,7 +44,9 @@
                             <td class="px-4 py-2">{{ optional($wo->due_date)->format('Y-m-d H:i') ?? '—' }}</td>
                         </tr>
                     @empty
-                        <tr><td colspan="5" class="px-4 py-6 text-center text-gray-500">Sin órdenes todavía</td></tr>
+                        <tr>
+                            <td colspan="5" class="px-4 py-6 text-center text-gray-500">Sin órdenes todavía</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

@@ -14,14 +14,15 @@ Route::get('/health', function (Request $request) {
     try {
         DB::connection()->getPdo();
         return response()->json([
-            'OK' => true, 
+            'OK' => true,
             'DB' => DB::connection()->getDatabaseName(),
             'user' => $request->user()?->name,
         ]);
     } catch (\Throwable $e) {
         return response()->json([
-            'OK' => false, 
-            'error' => $e->getMessage()], 500);
+            'OK' => false,
+            'error' => $e->getMessage()
+        ], 500);
     }
 })->middleware('auth');
 
@@ -37,9 +38,9 @@ Route::middleware('auth')->group(function () {
 
 //  mini-front de ejemplo
 Route::middleware(['auth'])->group(function () {
-    Route::get('/work-orders', [WorkOrderController::class, 'index'])->name('work-orders.index');
-    Route::get('/work-orders/create', [WorkOrderController::class, 'create'])->name('work-orders.create');
-    Route::post('/work-orders', [WorkOrderController::class, 'store'])->name('work-orders.store');
+    Route::get('/work-orders', [WorkOrderController::class, 'index'])->name('workorders.index');
+    Route::get('/work-orders/create', [WorkOrderController::class, 'create'])->name('workorders.create');
+    Route::post('/work-orders', [WorkOrderController::class, 'store'])->name('workorders.store');
 });
 
 require __DIR__ . '/auth.php';
