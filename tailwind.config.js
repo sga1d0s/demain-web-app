@@ -13,6 +13,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                impact: ['Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif'],
             },
         },
     },

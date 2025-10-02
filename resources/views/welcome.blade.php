@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Demain IT</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,9 +23,19 @@
 
 </head>
 
-<body
-    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex lg:p-6 items-center lg:justify-center flex-col">
+    
+    <header class="w-full max-w-[335px] text-sm ">
+        <div class="flex items-end justify-between pb-6">
+            <a href="/">
+                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            </a>
+            <div class="font-impact text-3xl">Demain Informática</div>
+        </div>
+
+    </header>
+
+    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         @if (Route::has('login'))
             <nav class="flex items-center justify-end gap-4">
                 @auth
@@ -39,11 +49,12 @@
                     </a>
                 @else
                     <a href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
+                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                         Log in
                     </a>
 
-                    @if (Route::has('register'))
+                    {{-- Register eliminado --}}
+                    @if (Route::has('register') && 1 < 0)
                         <a href="{{ route('register') }}"
                             class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                             Register
@@ -52,15 +63,15 @@
                 @endauth
             </nav>
         @endif
-    </header>
 
-    <div>
-        <h1>DEMAIN</h1>
+        <div>
+            <h1>DEMAIN</h1>
+        </div>
+        <div>
+            <h1>INFORMÁTICA</h1>
+        </div>
+        <p>Work orders management</p>
     </div>
-    <div>
-        <h1>INFORMÁTICA</h1>
-    </div>
-    <p>Work orders management</p>
 
     @if (Route::has('login'))
         <div class="h-14.5 hidden lg:block"></div>
