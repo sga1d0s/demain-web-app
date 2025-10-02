@@ -64,10 +64,10 @@
             @endif
 
             <div>
-                <h1 class="font-impact text-6xl py-6 justify-end">DEMAIN</h1>
+                <h1 class="font-impact text-5xl py-6">DEMAIN</h1>
             </div>
-            <div>
-                <h1 class="font-impact text-6xl py-6">INFORMÁTICA</h1>
+            <div class="flex justify-end">
+                <h1 class="font-impact text-5xl py-6">INFORMÁTICA</h1>
             </div>
             <p class="font-impact text-2xl py-6">Work orders management</p>
         </div>
