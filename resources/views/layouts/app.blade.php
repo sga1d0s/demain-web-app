@@ -41,45 +41,4 @@
     </div>
 </body>
 
-<script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js")
-            .then(() => console.log("Service Worker registrado"))
-            .catch(err => console.error("Error Service Worker", err));
-    }
-
-    // Evento para controlar el prompt de instalación
-    let deferredPrompt;
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-
-        // Mostrar un botón "Instalar" en tu UI
-        const installBtn = document.createElement("button");
-        installBtn.innerText = "📲 Instalar app";
-        installBtn.style.position = "fixed";
-        installBtn.style.bottom = "20px";
-        installBtn.style.right = "20px";
-        installBtn.style.padding = "10px 15px";
-        installBtn.style.background = "#0d6efd";
-        installBtn.style.color = "#fff";
-        installBtn.style.border = "none";
-        installBtn.style.borderRadius = "5px";
-        installBtn.style.cursor = "pointer";
-
-        document.body.appendChild(installBtn);
-
-        installBtn.addEventListener("click", async () => {
-            installBtn.style.display = "none";
-            deferredPrompt.prompt();
-            const {
-                outcome
-            } = await deferredPrompt.userChoice;
-            console.log(`User response: ${outcome}`);
-            deferredPrompt = null;
-        });
-    });
-</script>
-
 </html>
